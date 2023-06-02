@@ -12,4 +12,15 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
-####
+--fs -rm -r output
+
+lines = LOAD 'data.tsv' AS (line:CHARARRAY);
+
+words = FOREACH lines GENERATE FLATTEN(TOKENIZE(line)) AS word;
+
+grouped = GROUP words BY word;
+
+wordcount = FOREACH grouped GENERATE group, COUNT(words);
+
+STORE wordcount INTO 'output/';
+
