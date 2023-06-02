@@ -12,7 +12,7 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
-fs -rm -r output
+--fs -rm -r output
 
 lines = LOAD 'data.tsv' AS (line:CHARARRAY);
 
