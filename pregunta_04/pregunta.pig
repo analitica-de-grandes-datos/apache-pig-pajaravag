@@ -28,3 +28,16 @@ $ pig -x local -f pregunta.pig
 
          >>> Escriba su respuesta a partir de este punto <<<
 */
+lines = LOAD 'data.csv' USING PigStorage(',') AS (
+        col1:int, col2:int, col3:chararray, col4:chararray,
+        col5:float, col6:float, col7:chararray, col8:long,
+        col9:chararray, col10:long, col11:chararray, col12:chararray
+        );
+
+selected_columns = FOREACH lines GENERATE col1, col2, col3;
+
+s = LIMIT selected_columns 10;
+
+ordered_data = ORDER s BY col1, col2, col3; 
+
+STORE ordered_data INTO 'output' USING PigStorage(',');
