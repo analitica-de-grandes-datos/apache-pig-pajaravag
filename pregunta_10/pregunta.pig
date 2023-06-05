@@ -21,3 +21,19 @@ $ pig -x local -f pregunta.pig
         >>> Escriba su respuesta a partir de este punto <<<
 */
 
+data = LOAD 'data.csv' USING PigStorage(',') AS (col1:int, 
+                          col2:CHARARRAY,
+                          col3:CHARARRAY,
+                          col4:CHARARRAY,
+                          col5:CHARARRAY,
+                          col6:int);
+
+surnames = FOREACH data GENERATE col3 AS sur_names, SIZE(col3) AS long_names;
+
+ordered_data = ORDER surnames BY long_names DESC, sur_names; 
+
+s = LIMIT ordered_data 5;
+
+STORE s INTO 'output';
+
+--DUMP s;
