@@ -36,7 +36,7 @@ data = LOAD 'data.csv' USING PigStorage(',') AS (col1:int,
 
 surnames = FOREACH data GENERATE FLATTEN(col3) AS surname;
 
-filtered_data = FILTER surnames BY LOWER(SUBSTRING(surname, 0, 1)) MATCHES '^[defghik]';
+filtered_data = FILTER surnames BY LOWER(SUBSTRING(surname, 0, 1)) MATCHES '^[defghijk]';
 
 STORE filtered_data INTO 'output';
 --DUMP filtered_data;
