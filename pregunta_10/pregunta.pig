@@ -34,6 +34,6 @@ ordered_data = ORDER surnames BY long_names DESC, sur_names;
 
 s = LIMIT ordered_data 5;
 
-STORE s INTO 'output';
+STORE s INTO 'output' USING PigStorage(',');
 
 --DUMP s;
