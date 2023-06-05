@@ -22,3 +22,17 @@ $ pig -x local -f pregunta.pig
         >>> Escriba su respuesta a partir de este punto <<<
 */
 
+data = LOAD 'data.csv' USING PigStorage(',') AS (col1:int, 
+                          col2:CHARARRAY,
+                          col3:CHARARRAY,
+                          col4:CHARARRAY,
+                          col5:CHARARRAY,
+                          col6:int);
+
+colors = FOREACH data GENERATE col2 AS firstname, col5 AS color;
+
+filtered_data = FILTER colors BY color MATCHES 'blue' OR color MATCHES 'green';
+
+STORE filtered_data INTO 'output' USING PigStorage(',');
+
+--DUMP filtered_data;
