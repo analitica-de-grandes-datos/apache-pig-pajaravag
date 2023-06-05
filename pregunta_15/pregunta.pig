@@ -31,5 +31,5 @@ colors = FOREACH data GENERATE col2 AS firstname, col5 AS color;
 
 filtered_data = FILTER colors BY (SUBSTRING(firstname, 0, 1) MATCHES '^Z' AND LOWER(color) MATCHES 'blue');
 
-STORE filtered_data INTO 'output';
+STORE filtered_data INTO 'output' USING PigStorage(' ');
 --DUMP filtered_data;
