@@ -34,6 +34,6 @@ fechas = FOREACH data GENERATE col4 AS fecha;
 
 data_subs = FOREACH fechas GENERATE SUBSTRING(fecha,0,4), SUBSTRING(fecha,2,4);
 
-STORE data_subs into 'output';
+STORE data_subs into 'output' USING PigStorage(',');
 
 --DUMP data_subs;
