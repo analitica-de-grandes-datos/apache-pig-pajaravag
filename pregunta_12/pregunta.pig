@@ -27,3 +27,16 @@ $ pig -x local -f pregunta.pig
         >>> Escriba su respuesta a partir de este punto <<<
 */
 
+data = LOAD 'data.csv' USING PigStorage(',') AS (col1:int, 
+                          col2:CHARARRAY,
+                          col3:CHARARRAY,
+                          col4:CHARARRAY,
+                          col5:CHARARRAY,
+                          col6:int);
+
+surnames = FOREACH data GENERATE FLATTEN(col3) AS surname;
+
+filtered_data = FILTER surnames BY LOWER(SUBSTRING(surname, 0, 1)) MATCHES '^[defghijk]';
+
+STORE filtered_data INTO 'output';
+--DUMP filtered_data;
